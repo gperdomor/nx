@@ -1,12 +1,11 @@
 import { stripIndents } from '@angular-devkit/core/src/utils/literals';
-import { exec, execSync } from 'child_process';
-import * as http from 'http';
 import {
   checkFilesDoNotExist,
   checkFilesExist,
   createFile,
   killPorts,
   newProject,
+  promisifiedTreeKill,
   readFile,
   readJson,
   runCLI,
@@ -16,9 +15,10 @@ import {
   uniq,
   updateFile,
   updateWorkspaceConfig,
-  promisifiedTreeKill,
 } from '@nrwl/e2e/utils';
+import { exec, execSync } from 'child_process';
 import { accessSync, constants } from 'fs-extra';
+import * as http from 'http';
 
 function getData(port): Promise<any> {
   return new Promise((resolve) => {
@@ -217,9 +217,9 @@ describe('Build Node apps', () => {
     expect(packageJson).toEqual(
       expect.objectContaining({
         dependencies: {
-          '@nestjs/common': '^7.0.0',
-          '@nestjs/core': '^7.0.0',
-          '@nestjs/platform-express': '^7.0.0',
+          '@nestjs/common': '^8.0.0',
+          '@nestjs/core': '^8.0.0',
+          '@nestjs/platform-express': '^8.0.0',
           'reflect-metadata': '^0.1.13',
           rxjs: '~6.6.3',
         },
